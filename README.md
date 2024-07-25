@@ -25,6 +25,12 @@ This document describes the functionality supported by the NPI List API. PulsePo
 
 All examples in this documentation use the `curl` command line tool: `http://curl.haxx.se/` Note that for all statements including `<username>:<password>` and `<client_secret>` you will need to replace with your Life username and password and client_secret respectively.
 
+Base URL for all API calls is the following:
+
+```txt
+https://lifeapi.pulsepoint.com/RestApi/
+```
+
 ## USER AUTHENTICATION (OAUTH 2.0)
 
 The NPI List API uses OAuth 2.0 in order to authorize its users. A typical client's Life account has many users and each user is assigned a unique username/password combination that they use to access the Life Platform. The same username/password credentials can be used to access the NPI Life API as well. Additionally, a unique client_secret is assigned to each organization in Life. Your PulsePoint Representative will provide you with access to this client_secret.
@@ -33,10 +39,10 @@ Developers in an organization can use any username/password combination to authe
 
 ### 1. Send username/password credentials to the endpoint, providing additional parameters
 
-**ENDPOINT**
+#### ENDPOINT
 
 ```txt
-https://lifeapi.pulsepoint.com/RestApi/oauth/token
+oauth/token
 ```
 
 - `grant_type=password`
@@ -98,19 +104,18 @@ c. `--data refresh_token=$REFRESH_TOKEN`
 
 This endpoint allows clients to retrieve a list of all NPI's that are in a single NPI list.
 
-**ENDPOINT**
+<strong>
+HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
 
 ```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/{listID}
+/v1/npi/npi-list/{listID}
 ```
 
-**SAMPLE REQUEST**
-
-```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/4210
-```
-
-**SAMPLE RESPONSE**
+#### SAMPLE RESPONSE
 
 ```json
 {
@@ -186,23 +191,24 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 
 </details>
 
+---
+
 ### 2. Get all NPI lists
 
 This endpoint allows clients to get a list of all NPI lists associated with an account.
 
-**ENDPOINT**
+<strong>
+HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
 
 ```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/{accountID}
+/v1/npi/npi-list/account/{accountID}
 ```
 
-**SAMPLE REQUEST**
-
-```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/559145
-```
-
-**SAMPLE RESPONSE**
+#### SAMPLE RESPONSE
 
 ```json
 [
@@ -273,21 +279,24 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 
 </details>
 
+---
+
 ### 3. Create an NPI list
 
 This endpoint allows clients to create a new NPI list and add NPIs to the new list.
 
-**ENDPOINT**
+<strong>
+HTTP Method: <span style=" background-color: #49cc90; padding: 6px 8px; border-radius: 4px">POST</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
 
 ```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/{accountid}
+/v1/npi/npi-list/account/{accountid}
 ```
 
-**SAMPLE REQUEST**
-
-```txt
-https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/559145
-```
+#### SAMPLE REQUEST
 
 ```json
 {
@@ -300,7 +309,7 @@ https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/559145
 
 **Note**: The applications field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
 
-**SAMPLE RESPONSE**
+#### SAMPLE RESPONSE
 
 ```json
 [
@@ -370,3 +379,354 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 ```
 
 </details>
+
+---
+
+### 4. Replace NPIs in a list
+
+This endpoint allows clients to get a list of all NPI lists associated with an account.
+
+<strong>
+HTTP Method: <span style=" background-color: #fca130; padding: 6px 8px; border-radius: 4px">PUT</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{listID}
+```
+
+#### SAMPLE REQUEST
+
+```json
+{
+  "npis": ["3137933120", "3134730121"]
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
+
+---
+
+### 5. Add NPIs to a list
+
+This endpoint allows clients to add NPIs to an existing NPI list.
+
+<strong>
+HTTP Method: <span style=" background-color: #50e3c2; padding: 6px 8px; border-radius: 4px">PATCH</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{listID}
+```
+
+#### SAMPLE REQUEST
+
+```json
+{
+  "operation": "add",
+  "npis": ["3137933122", "3134730123"]
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
+
+---
+
+### 6. Delete NPIs from a list
+
+This endpoint allows clients to delete NPIs from one list.
+
+<strong>
+HTTP Method: <span style=" background-color: #50e3c2; padding: 6px 8px; border-radius: 4px">PATCH</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{listID}
+```
+
+#### SAMPLE REQUEST
+
+```json
+{
+  "operation": "remove",
+  "npis": ["3137933122", "3134730123"]
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
+
+## NPI API ENDPOINTS - NPI LISTS WITH AT TRIBUTES
+
+An NPI list with attributes is an NPI list that appends a client's metadata to their list of NPIs. This endpoint allows users to create an NPI list with attributes, replace an NPI list with attributes and view an NPI list with attributes.
+
+Definitions:
+
+- Attribute = column headers
+- Attribute Value = value for corresponding attribute header per NPI
+- Name = NPI list name (upon creation)
+- NpiColumnIndex = which column contains NPIs (Starts with first column = 0)
+- NPIListId = the Pulsepoint numeric identifier for the NPI list
+
+### 1. Create NPI list with attributes
+
+Create new NPI lists with client’s own attributes.
+
+<strong>
+HTTP Method: <span style=" background-color: #49cc90; padding: 6px 8px; border-radius: 4px">POST</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/account/{accountId}/attributes
+```
+
+#### SAMPLE REQUEST
+
+```json
+{
+  "attributeValues": [
+    [
+      "1639137706",
+      "yes",
+      "1639137728",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137729",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc"
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137730",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc"
+    ]
+  ],
+  "attributes": [
+    "NPI_ID",
+    "NPI_ID1",
+    "NPI_ID2",
+    "NPI_ID3",
+    "NPI_ID4",
+    "NPI_ID5",
+    "NPI_ID6",
+    "NPI_ID7",
+    "NPI_ID8",
+    "NPI_ID9"
+  ],
+  "name": "NPI_with_Attr",
+  "npiColumnIndex": 2,
+  "advertisers": ["Demo"]
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
+
+---
+
+### 2. Replace NPI list with attributes
+
+Replace the entire NPI list with the new set of NPIs with corresponding attributes.
+
+<strong>
+HTTP Method: <span style=" background-color: #fca130; padding: 6px 8px; border-radius: 4px">PUT</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{NPIListId}/attributes
+```
+
+#### SAMPLE REQUEST
+
+```json
+{
+  "attributeValues": [
+    [
+      "1639137706",
+      "yes",
+      "1639137728",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137729",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137732",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ]
+  ],
+  "attributes": [
+    "NPI_ID",
+    "NPI_ID1",
+    "NPI_ID2",
+    "NPI_ID3",
+    "NPI_ID4",
+    "NPI_ID5",
+    "NPI_ID6",
+    "NPI_ID7",
+    "NPI_ID8",
+    "NPI_ID9"
+  ],
+  "npiColumnIndex": 2
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
+
+---
+
+### 3. View NPI list with attributes
+
+Show the current NPI list with corresponding attributes.
+
+<strong>
+HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
+</strong>
+<br><br>
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{NPIListId}/attributes
+```
+
+#### SAMPLE RESPONSE
+
+```json
+{
+  "attributeValues": [
+    [
+      "1639137706",
+      "yes",
+      "1639137728",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137729",
+      "1447654",
+      " ",
+      "154951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ],
+    [
+      "1639137707",
+      "yes",
+      "1639137732",
+      "1447654",
+      " ",
+      "14951",
+      "154951",
+      " ",
+      "NPI Targeted Banners",
+      "PulsePoint Inc."
+    ]
+  ],
+  "attributes": [
+    "NPI_ID",
+    "NPI_ID1",
+    "NPI_ID2",
+    "NPI_ID3",
+    "NPI_ID4",
+    "NPI_ID5",
+    "NPI_ID6",
+    "NPI_ID7",
+    "NPI_ID8",
+    "NPI_ID9"
+  ],
+  "name": "NPI_with_Attr",
+  "advertisers": ["Demo"]
+}
+```
+
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+
+- 401: Unauthorized
+- 429: Too many requests
+- 500: Internal server error
