@@ -104,10 +104,7 @@ c. `--data refresh_token=$REFRESH_TOKEN`
 
 This endpoint allows clients to retrieve a list of all NPI's that are in a single NPI list.
 
-<strong>
-HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
-</strong>
-<br><br>
+![GET](https://img.shields.io/badge/HTTP%20Method-GET-61affe?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -197,10 +194,7 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 
 This endpoint allows clients to get a list of all NPI lists associated with an account.
 
-<strong>
-HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
-</strong>
-<br><br>
+![GET](https://img.shields.io/badge/HTTP%20Method-GET-61affe?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -285,10 +279,7 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 
 This endpoint allows clients to create a new NPI list and add NPIs to the new list.
 
-<strong>
-HTTP Method: <span style=" background-color: #49cc90; padding: 6px 8px; border-radius: 4px">POST</span>
-</strong>
-<br><br>
+![POST](https://img.shields.io/badge/HTTP%20Method-POST-49cc90?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -386,10 +377,7 @@ fetch('https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2021-11
 
 This endpoint allows clients to get a list of all NPI lists associated with an account.
 
-<strong>
-HTTP Method: <span style=" background-color: #fca130; padding: 6px 8px; border-radius: 4px">PUT</span>
-</strong>
-<br><br>
+![PUT](https://img.shields.io/badge/HTTP%20Method-PUT-fca130?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -417,10 +405,7 @@ If successful in your request the response will return a `200`. If your request 
 
 This endpoint allows clients to add NPIs to an existing NPI list.
 
-<strong>
-HTTP Method: <span style=" background-color: #50e3c2; padding: 6px 8px; border-radius: 4px">PATCH</span>
-</strong>
-<br><br>
+![PATCH](https://img.shields.io/badge/HTTP%20Method-PATCH-50e3c2?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -449,10 +434,7 @@ If successful in your request the response will return a `200`. If your request 
 
 This endpoint allows clients to delete NPIs from one list.
 
-<strong>
-HTTP Method: <span style=" background-color: #50e3c2; padding: 6px 8px; border-radius: 4px">PATCH</span>
-</strong>
-<br><br>
+![PATCH](https://img.shields.io/badge/HTTP%20Method-PATCH-50e3c2?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -491,9 +473,7 @@ Definitions:
 
 Create new NPI lists with client’s own attributes.
 
-<strong>
-HTTP Method: <span style=" background-color: #49cc90; padding: 6px 8px; border-radius: 4px">POST</span>
-</strong>
+![POST](https://img.shields.io/badge/HTTP%20Method-POST-49cc90?style=for-the-badge)
 <br><br>
 
 #### ENDPOINT
@@ -574,10 +554,7 @@ If successful in your request the response will return a `200`. If your request 
 
 Replace the entire NPI list with the new set of NPIs with corresponding attributes.
 
-<strong>
-HTTP Method: <span style=" background-color: #fca130; padding: 6px 8px; border-radius: 4px">PUT</span>
-</strong>
-<br><br>
+![PUT](https://img.shields.io/badge/HTTP%20Method-PUT-fca130?style=for-the-badge)
 
 #### ENDPOINT
 
@@ -655,10 +632,7 @@ If successful in your request the response will return a `200`. If your request 
 
 Show the current NPI list with corresponding attributes.
 
-<strong>
-HTTP Method: <span style=" background-color: #61affe; padding: 6px 8px; border-radius: 4px">GET</span>
-</strong>
-<br><br>
+![GET](https://img.shields.io/badge/HTTP%20Method-GET-61affe?style=for-the-badge)
 
 #### ENDPOINT
 
