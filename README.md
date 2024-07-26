@@ -25,7 +25,9 @@ This document describes the functionality supported by the NPI List API. PulsePo
 
 All examples in this documentation use the `curl` command line tool: `http://curl.haxx.se/` Note that for all statements including `<username>:<password>` and `<client_secret>` you will need to replace with your Life username and password and client_secret respectively.
 
-Base URL for all API calls is the following:
+![IMPORTANT](https://img.shields.io/badge/!!!-IMPORTANT-f93e3e?style=for-the-badge)
+
+The base URL for all API calls is the following:
 
 ```txt
 https://lifeapi.pulsepoint.com/RestApi/
