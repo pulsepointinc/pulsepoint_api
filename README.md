@@ -25,13 +25,25 @@ This document describes the functionality supported by the NPI List API. PulsePo
 
 All examples in this documentation use the `curl` command line tool: `http://curl.haxx.se/` Note that for all statements including `<username>:<password>` and `<client_secret>` you will need to replace with your Life username and password and client_secret respectively.
 
-![IMPORTANT](https://img.shields.io/badge/!!!-IMPORTANT-f93e3e?style=for-the-badge)
+![IMPORTANT](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
 
 The base URL for all API calls is the following:
 
 ```txt
 https://lifeapi.pulsepoint.com/RestApi/
 ```
+
+## Potential Error codes
+
+| Code                                                                                      | Description           |
+| ----------------------------------------------------------------------------------------- | --------------------- |
+| ![400 BAD_REQUEST](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)           | BAD_REQUEST           |
+| ![401 UNAUTHORIZED](https://img.shields.io/badge/401-f93e3e?style=for-the-badge)          | UNAUTHORIZED          |
+| ![403 FORBIDDEN](https://img.shields.io/badge/403-f93e3e?style=for-the-badge)             | FORBIDDEN             |
+| ![405 METHOD_NOT_ALLOWED](https://img.shields.io/badge/405-f93e3e?style=for-the-badge)    | METHOD_NOT_ALLOWED    |
+| ![408 REQUEST_TIMEOUT](https://img.shields.io/badge/408-f93e3e?style=for-the-badge)       | REQUEST_TIMEOUT       |
+| ![429 TOO_MANY_REQUESTS](https://img.shields.io/badge/429-f93e3e?style=for-the-badge)     | TOO_MANY_REQUESTS     |
+| ![500 INTERNAL_SERVER_ERROR](https://img.shields.io/badge/500-f93e3e?style=for-the-badge) | INTERNAL_SERVER_ERROR |
 
 ## USER AUTHENTICATION (OAUTH 2.0)
 
@@ -116,7 +128,7 @@ When using the access token, include the same header when calling the NPI API. `
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### PYTHON
@@ -221,7 +233,7 @@ This endpoint allows clients to retrieve a list of all NPI's that are in a singl
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -238,12 +250,11 @@ import requests
 
 url = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/33388"
 
-payload = {}
 headers = {
   'Authorization': 'Bearer <token>'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("GET", url, headers=headers)
 
 print(response.text)
 
@@ -252,10 +263,7 @@ print(response.text)
 #### JAVA
 
 ```java
-OkHttpClient client = new OkHttpClient().newBuilder()
-  .build();
-MediaType mediaType = MediaType.parse("text/plain");
-RequestBody body = RequestBody.create(mediaType, "");
+OkHttpClient client = new OkHttpClient().newBuilder().build();
 Request request = new Request.Builder()
   .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/33388")
   .method("GET", body)
@@ -305,13 +313,9 @@ This endpoint allows clients to get a list of all NPI lists associated with an a
 
 ```json
 [
-  {"id": 30, "advertisers": ["Demo"], "name": "mylisttwo"},
-  {
-    "id": 38,
-    "advertisers": ["Demo"],
-    "name": "mylisttwo1sdfafdsmylisttwo1sdfafdsmylisttwo1sdfafd"
-  },
-  {"id": 39, "advertisers": ["Demo"], "name": "myNPItest"}
+  {"id": 30, "advertisers": ["Demo"], "name": "NPI_Oncologist"},
+  {"id": 38, "advertisers": ["Demo"], "name": "NPI_Cardiology"},
+  {"id": 39, "advertisers": ["Demo"], "name": "NPI_Dermatology"}
 ]
 ```
 
@@ -320,7 +324,7 @@ This endpoint allows clients to get a list of all NPI lists associated with an a
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -337,12 +341,11 @@ import requests
 
 url = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939"
 
-payload = {}
 headers = {
   'Authorization': 'Bearer <token>'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("GET", url, headers=headers)
 
 print(response.text)
 
@@ -351,13 +354,10 @@ print(response.text)
 #### JAVA
 
 ```java
-OkHttpClient client = new OkHttpClient().newBuilder()
-  .build();
-MediaType mediaType = MediaType.parse("text/plain");
-RequestBody body = RequestBody.create(mediaType, "");
+OkHttpClient client = new OkHttpClient().newBuilder().build();
 Request request = new Request.Builder()
   .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939")
-  .method("GET", body)
+  .method("GET")
   .addHeader("Authorization", "Bearer <token>")
   .build();
 Response response = client.newCall(request).execute();
@@ -404,37 +404,30 @@ This endpoint allows clients to create a new NPI list and add NPIs to the new li
 
 ```json
 {
-  "name": "TEST_2022_1",
+  "name": "Endocrinologist_2022_1",
   "npis": ["3137933127", "3134730121"],
   "advertisers": ["Demo"],
   "applications": ["LIFE"]
 }
 ```
 
-![IMPORTANT](https://img.shields.io/badge/!!!-IMPORTANT-f93e3e?style=for-the-badge)
+![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
 
 The applications field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
 
-#### SAMPLE RESPONSE
+If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-```json
-[
-  {"id": 30, "advertisers": ["Demo"], "name": "mylisttwo"},
-  {
-    "id": 38,
-    "advertisers": ["Demo"],
-    "name": "My Demo list"
-  },
-  {"id": 39, "advertisers": ["Demo"], "name": "myNPItest"}
-]
-```
+| Error Code                                                                            | Description                                                                         |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Please add at least one of the following integrations: `LIFE`, `SIGNAL` or `SOCIAL` |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests                                               |
 
 <details>
 <summary>
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -444,7 +437,7 @@ curl --location --request POST 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/np
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <token>' \
 --data '{
-  "name": "TEST_api_1",
+  "name": "Endocrinologist_2023_1",
   "npis": ["3137933127", "3134730121"],
   "advertisers": ["Demo"],
   "applications": ["LIFE"]
@@ -460,7 +453,7 @@ import json
 url = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939"
 
 payload = json.dumps({
-  "name": "TEST_api_1",
+  "name": "Endocrinologist_2023_1",
   "npis": [
     "3137933127",
     "3134730121"
@@ -489,7 +482,7 @@ print(response.text)
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\n  \"name\": \"TEST_api_1\",\n  \"npis\": [\"3137933127\", \"3134730121\"],\n  \"advertisers\": [\"Demo\"],\n  \"applications\": [\"LIFE\"]\n}");
+RequestBody body = RequestBody.create(mediaType, "{\n  \"name\": \"Endocrinologist_2023_1\",\n  \"npis\": [\"3137933127\", \"3134730121\"],\n  \"advertisers\": [\"Demo\"],\n  \"applications\": [\"LIFE\"]\n}");
 Request request = new Request.Builder()
   .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939")
   .method("POST", body)
@@ -507,7 +500,7 @@ myHeaders.append('Content-Type', 'application/json')
 myHeaders.append('Authorization', 'Bearer <token>')
 
 const raw = JSON.stringify({
-  name: 'TEST_api_1',
+  name: 'Endocrinologist_2023_1',
   npis: ['3137933127', '3134730121'],
   advertisers: ['Demo'],
   applications: ['LIFE'],
@@ -564,7 +557,7 @@ If successful in your request the response will return a `200`. If your request 
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -672,16 +665,14 @@ This endpoint allows clients to add NPIs to an existing NPI list.
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+xxx
 
 <details>
 <summary>
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -802,7 +793,7 @@ If successful in your request the response will return a `200`. If your request 
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -986,7 +977,7 @@ If successful in your request the response will return a `200`. If your request 
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -1135,7 +1126,7 @@ If successful in your request the response will return a `200`. If your request 
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
@@ -1451,7 +1442,7 @@ If successful in your request the response will return a `200`. If your request 
     <strong>REQUEST EXAMPLES</strong>
 </summary>
 <br>
-Below are a list of code examples for Python, Java and JavaScript
+Below are a list of code examples for CURL, Python, Java and JavaScript
 <br><br>
 
 #### CURL
