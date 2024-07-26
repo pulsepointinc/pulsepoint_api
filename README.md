@@ -92,11 +92,22 @@ curl --request POST \
 
 ```
 
-a. `--user '$client:$secret'`
-b. `--data grant_type=refresh_token`
-c. `--data refresh_token=$REFRESH_TOKEN`
+- `--user '$client:$secret'`
+- `--data grant_type=refresh_token`
+- `--data refresh_token=$REFRESH_TOKEN`
 
 ### 3. Using the refresh token, we can get a “new” access token alongside a new refresh token using the parameters
+
+```bash
+curl --request POST \
+--url 'https://lifeapi.pulsepoint.com/RestApi/oauth/token' \
+--header 'content-type: application/x-www-form-urlencoded' \
+--user '$client:$secret'
+--data grant_type=refresh_token \
+--data refresh_token=$REFRESH_TOKEN
+```
+
+When using the access token, include the same header when calling the NPI API. `“Authorization: Bearer {access_token}”`
 
 <details>
 <summary>
@@ -211,6 +222,13 @@ This endpoint allows clients to retrieve a list of all NPI's that are in a singl
 Below are a list of code examples for Python, Java and JavaScript
 <br><br>
 
+#### CURL
+
+```bash
+curl --location 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/33388' \
+--header 'Authorization: Bearer <token>'
+```
+
 #### PYTHON
 
 ```python
@@ -229,15 +247,6 @@ print(response.text)
 
 ```
 
----
-
-#### CURL
-
-```bash
-curl --location 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/33388' \
---header 'Authorization: Bearer <token>'
-```
-
 #### JAVA
 
 ```java
@@ -252,8 +261,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -339,8 +346,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -355,8 +360,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -406,7 +409,9 @@ This endpoint allows clients to create a new NPI list and add NPIs to the new li
 }
 ```
 
-**Note**: The applications field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
+![IMPORTANT](https://img.shields.io/badge/!!!-IMPORTANT-f93e3e?style=for-the-badge)
+
+The applications field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
 
 #### SAMPLE RESPONSE
 
@@ -476,8 +481,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -493,8 +496,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -599,8 +600,6 @@ response = requests.request("PUT", url, headers=headers, data=payload)
 print(response.text)
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -616,8 +615,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -723,8 +720,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -740,8 +735,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -849,8 +842,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -866,8 +857,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -1023,8 +1012,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -1039,8 +1026,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -1285,8 +1270,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -1302,8 +1285,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -1496,8 +1477,6 @@ print(response.text)
 
 ```
 
----
-
 #### JAVA
 
 ```java
@@ -1512,8 +1491,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
----
 
 #### JAVASCRIPT
 
@@ -1537,6 +1514,8 @@ fetch(
 ```
 
 </details>
+
+---
 
 <p align="center"><img src="https://raw.githubusercontent.com/pulsepointinc/npiapi_docs/main/misc/banner.png" /></p>
 <p align="center">&copy; 2024  <a href="https://www.pulsepoint.com/" target="_blank">PulsePoint, Inc</a>
