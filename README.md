@@ -25,3 +25,8 @@ https://lifeapi.pulsepoint.com/RestApi/
 #### AUTHENTICATION
 
 For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
+
+---
+
+<p align="center"><img src="https://raw.githubusercontent.com/pulsepointinc/npiapi_docs/main/misc/banner.png" /></p>
+<p align="center">&copy; 2024  <a href="https://www.pulsepoint.com/" target="_blank">PulsePoint, Inc</a>
