@@ -255,7 +255,7 @@ This endpoint allows clients to create a new NPI list and add NPIs to the new li
 
 ![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
 
-The applications field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
+The `applications` field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
