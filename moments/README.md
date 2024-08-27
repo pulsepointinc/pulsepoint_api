@@ -65,11 +65,10 @@ This endpoint allows clients to retrieve a list of all NPIs that are currently p
 }
 ```
 
-| Error Code                                                                            | Description                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------- |
-| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       |                                       |
-| ![401 Bad Request](https://img.shields.io/badge/401-f93e3e?style=for-the-badge)       | UNAUTHORIZED                          |
-| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests |
+| Error Code                                                                            | Description                                         |
+| ------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | You do not have permission to view this Smart List. |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests               |
 
 <details>
 <summary>

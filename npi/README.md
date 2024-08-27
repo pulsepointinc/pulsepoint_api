@@ -70,6 +70,14 @@ This endpoint allows clients to retrieve a list of all NPI's that are in a singl
 }
 ```
 
+If successful in your request the response will be similar to above with a `200`. If your request fails it will return one of the following errors:
+
+| Error Code                                                                            | Description                                  |
+| ------------------------------------------------------------------------------------- | -------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | You do not have access to view this NPI List |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Unknown NPI list ID                          |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests        |
+
 <details>
 <summary>
     <strong>REQUEST EXAMPLES</strong>
@@ -161,6 +169,14 @@ This endpoint allows clients to get a list of all NPI lists associated with an a
 ]
 ```
 
+If successful in your request the response will be similar to above with a `200`. If your request fails it will return one of the following errors:
+
+| Error Code                                                                            | Description                                  |
+| ------------------------------------------------------------------------------------- | -------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | You do not have access to view this NPI List |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Unknown NPI list ID                          |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests        |
+
 <details>
 <summary>
     <strong>REQUEST EXAMPLES</strong>
@@ -249,20 +265,30 @@ This endpoint allows clients to create a new NPI list and add NPIs to the new li
   "name": "Endocrinologist_2022_1",
   "npis": ["3137933127", "3134730121"],
   "advertisers": ["Demo"],
-  "applications": ["LIFE"]
+  "applications"": ["LIFE"]
 }
 ```
 
 ![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
 
-The `applications` field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`
+The `applications` field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`. These are products used within Pulsepoint.
+
+- `LIFE`: Pulsepoints Buying platform
+- `SIGNAL`: HCP365
+- `SOCIAL`: ...
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-| Error Code                                                                            | Description                                                                         |
-| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Please add at least one of the following integrations: `LIFE`, `SIGNAL` or `SOCIAL` |
-| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests                                               |
+| Error Code                                                                            | Description                              |
+| ------------------------------------------------------------------------------------- | ---------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid property name for post operation |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid value(s) for `"applications""`   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not be empty                  |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid NPI ID                           |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not exceed 10 characters      |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | `"advertisers"` is required              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | 1Mn NPIs have been exceeded              |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests    |
 
 <details>
 <summary>
@@ -282,7 +308,7 @@ curl --location --request POST 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/np
   "name": "Endocrinologist_2023_1",
   "npis": ["3137933127", "3134730121"],
   "advertisers": ["Demo"],
-  "applications": ["LIFE"]
+  "applications"": ["LIFE"]
 }'
 ```
 
@@ -303,7 +329,7 @@ payload = json.dumps({
   "advertisers": [
     "Demo"
   ],
-  "applications": [
+  "applications"": [
     "LIFE"
   ]
 })
@@ -324,7 +350,7 @@ print(response.text)
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\n  \"name\": \"Endocrinologist_2023_1\",\n  \"npis\": [\"3137933127\", \"3134730121\"],\n  \"advertisers\": [\"Demo\"],\n  \"applications\": [\"LIFE\"]\n}");
+RequestBody body = RequestBody.create(mediaType, "{\n  \"name\": \"Endocrinologist_2023_1\",\n  \"npis\": [\"3137933127\", \"3134730121\"],\n  \"advertisers\": [\"Demo\"],\n  \"applications"\": [\"LIFE\"]\n}");
 Request request = new Request.Builder()
   .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939")
   .method("POST", body)
@@ -388,11 +414,21 @@ This endpoint allows clients to get a list of all NPI lists associated with an a
 }
 ```
 
-If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+If successful in your request the response will similar to above with a returned a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+| Error Code                                                                            | Description                                                                   |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid property name for post operation                                      |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid value(s) for `"applications""`                                        |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not be empty                                                       |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid NPI ID                                                                |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not exceed 10 characters                                           |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | `"advertisers"` is required                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | 1Mn NPIs have been exceeded                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Smart lists cannot be updated or deleted using the NPI List API.              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | PulsePoint provided lists cannot be updated or deleted using the NPI List API |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | List is archived and needs to be un-archived in order to be updated.          |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests                                         |
 
 <details>
 <summary>
@@ -505,9 +541,23 @@ This endpoint allows clients to add NPIs to an existing NPI list.
 }
 ```
 
-If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
+If successful in your request will return a `200`. If your request fails it will return one of the following errors:
 
-xxx
+| Error Code                                                                            | Description                                                                   |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid property name for post operation                                      |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid value(s) for `"applications"`                                         |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not be empty                                                       |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid NPI ID                                                                |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not exceed 10 characters                                           |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | `"advertisers"` is required                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | 1Mn NPIs have been exceeded                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Unknown `"operation"` type                                                    |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Cannot delete all NPIs from List                                              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Smart lists cannot be updated or deleted using the NPI List API.              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | PulsePoint provided lists cannot be updated or deleted using the NPI List API |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | List is archived and needs to be un-archived in order to be updated.          |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests                                         |
 
 <details>
 <summary>
@@ -626,9 +676,21 @@ This endpoint allows clients to delete NPIs from one list.
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+| Error Code                                                                            | Description                                                                   |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid property name for post operation                                      |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid value(s) for `"applications"`                                         |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not be empty                                                       |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid NPI ID                                                                |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not exceed 10 characters                                           |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | `"advertisers"` is required                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | 1Mn NPIs have been exceeded                                                   |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Unknown `"operation"` type                                                    |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Cannot delete all NPIs from List                                              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Smart lists cannot be updated or deleted using the NPI List API.              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | PulsePoint provided lists cannot be updated or deleted using the NPI List API |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | List is archived and needs to be un-archived in order to be updated.          |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests                                         |
 
 <details>
 <summary>
@@ -810,9 +872,16 @@ Create new NPI lists with client’s own attributes.
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+| Error Code                                                                            | Description                              |
+| ------------------------------------------------------------------------------------- | ---------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid property name for post operation |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid value(s) for `"applications"`    |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not be empty                  |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Invalid NPI ID                           |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI ID can not exceed 10 characters      |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | `"advertisers"` is required              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | 1Mn NPIs have been exceeded              |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests    |
 
 <details>
 <summary>
@@ -959,9 +1028,17 @@ Replace the entire NPI list with the new set of NPIs with corresponding attribut
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+| Error Code                                                                      | Description                                                          |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | Invalid property name for post operation                             |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | Invalid value(s) for `"applications"`                                |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | NPI ID can not be empty                                              |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | Invalid NPI ID                                                       |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | NPI ID can not exceed 10 characters                                  |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | `"advertisers"` is required                                          |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | 1Mn NPIs have been exceeded                                          |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | Cannot change application property during update                     |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge) | List is archived and needs to be un-archived in order to be updated. |
 
 <details>
 <summary>
@@ -1275,9 +1352,11 @@ Show the current NPI list with corresponding attributes.
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
-- 401: Unauthorized
-- 429: Too many requests
-- 500: Internal server error
+| Error Code                                                                            | Description                               |
+| ------------------------------------------------------------------------------------- | ----------------------------------------- |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | NPI provided is not a NPI Attribute List. |
+| ![400 Bad Request](https://img.shields.io/badge/400-f93e3e?style=for-the-badge)       | Unknown NPI list ID                       |
+| ![429 Too many requests](https://img.shields.io/badge/429-f93e3e?style=for-the-badge) | Server has received too many requests     |
 
 <details>
 <summary>
@@ -1349,4 +1428,3 @@ fetch(
 ```
 
 </details>
-
