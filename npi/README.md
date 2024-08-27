@@ -265,7 +265,7 @@ This endpoint allows clients to create a new NPI list and add NPIs to the new li
   "name": "Endocrinologist_2022_1",
   "npis": ["3137933127", "3134730121"],
   "advertisers": ["Demo"],
-  "applications"": ["LIFE"]
+  "applications": ["LIFE"]
 }
 ```
 
@@ -414,7 +414,7 @@ This endpoint allows clients to get a list of all NPI lists associated with an a
 }
 ```
 
-If successful in your request the response will similar to above with a returned a `200`. If your request fails it will return one of the following errors:
+If successful in your request the response will be similar to above with a returned a `200`. If your request fails it will return one of the following errors:
 
 | Error Code                                                                            | Description                                                                   |
 | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
