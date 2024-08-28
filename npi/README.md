@@ -8,7 +8,7 @@ This document describes the functionality supported by the NPI List API. PulsePo
 
 ### NPI LISTS
 
-1. [Get an NPIs liss](#1-get-an-npi-list)
+1. [Get an NPIs lists](#1-get-an-npi-list)
 2. [Get all NPI list](#2-get-all-npi-lists)
 3. [Create an NPI list](#3-create-an-npi-list)
 4. [Replace NPIs in a list](#4-replace-npis-in-a-list)
