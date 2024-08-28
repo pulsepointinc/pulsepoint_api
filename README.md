@@ -1,5 +1,11 @@
 # NPI API Documentation
 
+#### AUTHENTICATION
+
+For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
+
+---
+
 ## NPI LIST API
 
 PulsePoint's clients use NPI lists for campaign targeting. These lists can change often and are customizable by each client. Clients now have direct access and complete control of their standard NPI lists and NPI lists with attributes via the NPI List API.
@@ -21,12 +27,6 @@ The base URL for all API calls is the following:
 ```txt
 https://lifeapi.pulsepoint.com/RestApi/
 ```
-
-#### AUTHENTICATION
-
-For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
-
----
 
 <p align="center"><img src="https://raw.githubusercontent.com/pulsepointinc/npiapi_docs/main/misc/banner.png" /></p>
 <p align="center">&copy; 2024  <a href="https://www.pulsepoint.com/" target="_blank">PulsePoint, Inc</a>
