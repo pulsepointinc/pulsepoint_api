@@ -785,17 +785,26 @@ fetch(
 
 </details>
 
-## NPI API ENDPOINTS - NPI LISTS WITH AT TRIBUTES
+## NPI API ENDPOINTS - NPI LISTS WITH ATTRIBUTES
 
 An NPI list with attributes is an NPI list that appends a client's metadata to their list of NPIs. This endpoint allows users to create an NPI list with attributes, replace an NPI list with attributes and view an NPI list with attributes.
 
 Definitions:
 
-- Attribute = column headers
-- Attribute Value = value for corresponding attribute header per NPI
-- Name = NPI list name (upon creation)
-- NpiColumnIndex = which column contains NPIs (Starts with first column = 0)
-- NPIListId = the Pulsepoint numeric identifier for the NPI list
+- `Attribute` = column headers
+- `AttributeValues` = value for corresponding attribute header per NPI
+- `Name` = NPI list name (upon creation)
+- `NpiColumnIndex` = which column contains NPIs (Starts with first column = 0)
+- `NPIListId` = the Pulsepoint numeric identifier for the NPI list.
+
+![PLEASE NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
+
+NPI lists with attributes share some of the endpoint functionality that standard NPI lists have, such as the following:
+
+- [Get all NPI list](#2-get-all-npi-lists)
+- [Add NPIs into a list](#5-add-npis-to-a-list)
+- [Replace NPIs in a list](#4-replace-npis-in-a-list)
+- [Delete NPIs from a list](#6-delete-npis-from-a-list)
 
 ### 1. Create NPI list with attributes
 
