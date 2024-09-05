@@ -824,57 +824,11 @@ Create new NPI lists with client’s own attributes.
 ```json
 {
   "attributeValues": [
-    [
-      "1639137706",
-      "yes",
-      "1639137728",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137729",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc"
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137730",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc"
-    ]
+    ["1639137706", "yes", "NPI Targeted Banners", "PulsePoint Inc.", "123456"]
   ],
-  "attributes": [
-    "NPI_ID",
-    "NPI_ID1",
-    "NPI_ID2",
-    "NPI_ID3",
-    "NPI_ID4",
-    "NPI_ID5",
-    "NPI_ID6",
-    "NPI_ID7",
-    "NPI_ID8",
-    "NPI_ID9"
-  ],
+  "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
   "name": "NPI_with_Attr",
-  "npiColumnIndex": 2,
+  "npiColumnIndex": 0,
   "advertisers": ["Demo"]
 }
 ```
@@ -903,25 +857,54 @@ Below are a list of code examples for CURL, Python, Java and JavaScript
 #### CURL
 
 ```bash
-curl --location 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939/attributes' \
---header 'Authorization: Bearer <token>'
+curl --location --globoff '{{base_url}}/123456/attributes' \
+--header 'Content-Type: application/json' \
+--header 'Authorization', 'Bearer <token>' \
+--data '{
+  "attributeValues": [
+    ["1639137706", "yes", "NPI Targeted Banners", "PulsePoint Inc.", "123456"]
+  ],
+  "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
+  "npiColumnIndex": 0
+}'
 ```
 
 #### PYTHON
 
 ```python
 import requests
+import json
 
-url = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939/attributes"
+url = "{{base_url}}/123456/attributes"
 
-payload = {}
+payload = json.dumps({
+  "attributeValues": [
+    [
+      "1639137706",
+      "yes",
+      "NPI Targeted Banners",
+      "PulsePoint Inc.",
+      "123456"
+    ]
+  ],
+  "attributes": [
+    "NPI_ID",
+    "Active",
+    "CampaignName",
+    "CompanyName",
+    "CustomID"
+  ],
+  "npiColumnIndex": 0
+})
 headers = {
+  'Content-Type': 'application/json',
   'Authorization': 'Bearer <token>'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.text)
+
 
 ```
 
@@ -930,11 +913,12 @@ print(response.text)
 ```java
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
-MediaType mediaType = MediaType.parse("text/plain");
-RequestBody body = RequestBody.create(mediaType, "");
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\n  \"attributeValues\": [\n    [\"1639137706\", \"yes\", \"NPI Targeted Banners\", \"PulsePoint Inc.\", \"123456\"]\n  ],\n  \"attributes\": [\"NPI_ID\", \"Active\", \"CampaignName\", \"CompanyName\", \"CustomID\"],\n  \"npiColumnIndex\": 0\n}");
 Request request = new Request.Builder()
-  .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939/attributes")
-  .method("GET", body)
+  .url("{{base_url}}/123456/attributes")
+  .method("POST", body)
+  .addHeader("Content-Type", "application/json")
   .addHeader("Authorization", "Bearer <token>")
   .build();
 Response response = client.newCall(request).execute();
@@ -944,18 +928,25 @@ Response response = client.newCall(request).execute();
 
 ```javascript
 const myHeaders = new Headers()
+myHeaders.append('Content-Type', 'application/json')
 myHeaders.append('Authorization', 'Bearer <token>')
 
+const raw = JSON.stringify({
+  attributeValues: [
+    ['1639137706', 'yes', 'NPI Targeted Banners', 'PulsePoint Inc.', '123456'],
+  ],
+  attributes: ['NPI_ID', 'Active', 'CampaignName', 'CompanyName', 'CustomID'],
+  npiColumnIndex: 0,
+})
+
 const requestOptions = {
-  method: 'GET',
+  method: 'POST',
   headers: myHeaders,
+  body: raw,
   redirect: 'follow',
 }
 
-fetch(
-  'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939/attributes',
-  requestOptions,
-)
+fetch('{{base_url}}/123456/attributes', requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.error(error))
@@ -982,56 +973,10 @@ Replace the entire NPI list with the new set of NPIs with corresponding attribut
 ```json
 {
   "attributeValues": [
-    [
-      "1639137706",
-      "yes",
-      "1639137728",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137729",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137732",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ]
+    ["1639137706", "yes", "NPI Targeted Banners", "PulsePoint Inc.", "123456"]
   ],
-  "attributes": [
-    "NPI_ID",
-    "NPI_ID1",
-    "NPI_ID2",
-    "NPI_ID3",
-    "NPI_ID4",
-    "NPI_ID5",
-    "NPI_ID6",
-    "NPI_ID7",
-    "NPI_ID8",
-    "NPI_ID9"
-  ],
-  "npiColumnIndex": 2
+  "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
+  "npiColumnIndex": 0
 }
 ```
 
@@ -1060,61 +1005,15 @@ Below are a list of code examples for CURL, Python, Java and JavaScript
 #### CURL
 
 ```bash
-curl --location --request PUT 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/123456/attributes' \
+curl --location --globoff --request PUT '{{base_url}}/123456/attributes' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer <token>' \
+--header 'Authorization', 'Bearer <token>' \
 --data '{
   "attributeValues": [
-    [
-      "1639137706",
-      "yes",
-      "1639137728",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137729",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137732",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ]
+    ["1639137706", "yes", "NPI Targeted Banners", "PulsePoint Inc.", "123456"]
   ],
-  "attributes": [
-    "NPI_ID",
-    "NPI_ID1",
-    "NPI_ID2",
-    "NPI_ID3",
-    "NPI_ID4",
-    "NPI_ID5",
-    "NPI_ID6",
-    "NPI_ID7",
-    "NPI_ID8",
-    "NPI_ID9"
-  ],
-  "npiColumnIndex": 2
+  "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
+  "npiColumnIndex": 0
 }'
 ```
 
@@ -1124,60 +1023,26 @@ curl --location --request PUT 'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi
 import requests
 import json
 
-url = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/account/561939/attributes"
+url = "{{base_url}}/123456/attributes"
 
 payload = json.dumps({
   "attributeValues": [
     [
       "1639137706",
       "yes",
-      "1639137728",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
       "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137729",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137732",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
+      "PulsePoint Inc.",
+      "123456"
     ]
   ],
   "attributes": [
     "NPI_ID",
-    "NPI_ID1",
-    "NPI_ID2",
-    "NPI_ID3",
-    "NPI_ID4",
-    "NPI_ID5",
-    "NPI_ID6",
-    "NPI_ID7",
-    "NPI_ID8",
-    "NPI_ID9"
+    "Active",
+    "CampaignName",
+    "CompanyName",
+    "CustomID"
   ],
-  "npiColumnIndex": 2
+  "npiColumnIndex": 0
 })
 headers = {
   'Content-Type': 'application/json',
@@ -1188,7 +1053,6 @@ response = requests.request("PUT", url, headers=headers, data=payload)
 
 print(response.text)
 
-
 ```
 
 #### JAVA
@@ -1197,9 +1061,9 @@ print(response.text)
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\n  \"attributeValues\": [\n    [\n      \"1639137706\",\n      \"yes\",\n      \"1639137728\",\n      \"1447654\",\n      \" \",\n      \"154951\",\n      \"154951\",\n      \" \",\n      \"NPI Targeted Banners\",\n      \"PulsePoint Inc.\"\n    ],\n    [\n      \"1639137707\",\n      \"yes\",\n      \"1639137729\",\n      \"1447654\",\n      \" \",\n      \"154951\",\n      \"154951\",\n      \" \",\n      \"NPI Targeted Banners\",\n      \"PulsePoint Inc.\"\n    ],\n    [\n      \"1639137707\",\n      \"yes\",\n      \"1639137732\",\n      \"1447654\",\n      \" \",\n      \"154951\",\n      \"154951\",\n      \" \",\n      \"NPI Targeted Banners\",\n      \"PulsePoint Inc.\"\n    ]\n  ],\n  \"attributes\": [\n    \"NPI_ID\",\n    \"NPI_ID1\",\n    \"NPI_ID2\",\n    \"NPI_ID3\",\n    \"NPI_ID4\",\n    \"NPI_ID5\",\n    \"NPI_ID6\",\n    \"NPI_ID7\",\n    \"NPI_ID8\",\n    \"NPI_ID9\"\n  ],\n  \"npiColumnIndex\": 2\n}");
+RequestBody body = RequestBody.create(mediaType, "{\n  \"attributeValues\": [\n    [\"1639137706\", \"yes\", \"NPI Targeted Banners\", \"PulsePoint Inc.\", \"123456\"]\n  ],\n  \"attributes\": [\"NPI_ID\", \"Active\", \"CampaignName\", \"CompanyName\", \"CustomID\"],\n  \"npiColumnIndex\": 0\n}");
 Request request = new Request.Builder()
-  .url("https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/123456/attributes")
+  .url("{{base_url}}/123456/attributes")
   .method("PUT", body)
   .addHeader("Content-Type", "application/json")
   .addHeader("Authorization", "Bearer <token>")
@@ -1216,56 +1080,10 @@ myHeaders.append('Authorization', 'Bearer <token>')
 
 const raw = JSON.stringify({
   attributeValues: [
-    [
-      '1639137706',
-      'yes',
-      '1639137728',
-      '1447654',
-      ' ',
-      '154951',
-      '154951',
-      ' ',
-      'NPI Targeted Banners',
-      'PulsePoint Inc.',
-    ],
-    [
-      '1639137707',
-      'yes',
-      '1639137729',
-      '1447654',
-      ' ',
-      '154951',
-      '154951',
-      ' ',
-      'NPI Targeted Banners',
-      'PulsePoint Inc.',
-    ],
-    [
-      '1639137707',
-      'yes',
-      '1639137732',
-      '1447654',
-      ' ',
-      '154951',
-      '154951',
-      ' ',
-      'NPI Targeted Banners',
-      'PulsePoint Inc.',
-    ],
+    ['1639137706', 'yes', 'NPI Targeted Banners', 'PulsePoint Inc.', '123456'],
   ],
-  attributes: [
-    'NPI_ID',
-    'NPI_ID1',
-    'NPI_ID2',
-    'NPI_ID3',
-    'NPI_ID4',
-    'NPI_ID5',
-    'NPI_ID6',
-    'NPI_ID7',
-    'NPI_ID8',
-    'NPI_ID9',
-  ],
-  npiColumnIndex: 2,
+  attributes: ['NPI_ID', 'Active', 'CampaignName', 'CompanyName', 'CustomID'],
+  npiColumnIndex: 0,
 })
 
 const requestOptions = {
@@ -1275,10 +1093,7 @@ const requestOptions = {
   redirect: 'follow',
 }
 
-fetch(
-  'https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/123456/attributes',
-  requestOptions,
-)
+fetch('{{base_url}}/123456/attributes', requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.error(error))
@@ -1305,55 +1120,9 @@ Show the current NPI list with corresponding attributes.
 ```json
 {
   "attributeValues": [
-    [
-      "1639137706",
-      "yes",
-      "1639137728",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137729",
-      "1447654",
-      " ",
-      "154951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ],
-    [
-      "1639137707",
-      "yes",
-      "1639137732",
-      "1447654",
-      " ",
-      "14951",
-      "154951",
-      " ",
-      "NPI Targeted Banners",
-      "PulsePoint Inc."
-    ]
+    ["1639137706", "yes", "NPI Targeted Banners", "PulsePoint Inc.", "123456"]
   ],
-  "attributes": [
-    "NPI_ID",
-    "NPI_ID1",
-    "NPI_ID2",
-    "NPI_ID3",
-    "NPI_ID4",
-    "NPI_ID5",
-    "NPI_ID6",
-    "NPI_ID7",
-    "NPI_ID8",
-    "NPI_ID9"
-  ],
+  "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
   "name": "NPI_with_Attr",
   "advertisers": ["Demo"]
 }
