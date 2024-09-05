@@ -797,15 +797,6 @@ Definitions:
 - `NpiColumnIndex` = which column contains NPIs (Starts with first column = 0)
 - `NPIListId` = the Pulsepoint numeric identifier for the NPI list.
 
-![PLEASE NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
-
-NPI lists with attributes share some of the endpoint functionality that standard NPI lists have, such as the following:
-
-- [Get all NPI list](#2-get-all-npi-lists)
-- [Add NPIs into a list](#5-add-npis-to-a-list)
-- [Replace NPIs in a list](#4-replace-npis-in-a-list)
-- [Delete NPIs from a list](#6-delete-npis-from-a-list)
-
 ### 1. Create NPI list with attributes
 
 Create new NPI lists with client’s own attributes.
