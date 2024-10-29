@@ -820,9 +820,18 @@ Create new NPI lists with client’s own attributes.
   "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
   "name": "NPI_with_Attr",
   "npiColumnIndex": 0,
+  "applications": ['LIFE'],
   "advertisers": ["Demo"]
 }
 ```
+
+![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
+
+The `applications` field accepts either `[“LIFE”]`, `[“SIGNAL”]` or `[‘SOCIAL”]`. These are products used within Pulsepoint.
+
+- `LIFE`: Pulsepoints Buying platform
+- `SIGNAL`: HCP365
+- `SOCIAL`: ...
 
 If successful in your request the response will return a `200`. If your request fails it will return one of the following errors:
 
