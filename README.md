@@ -18,6 +18,12 @@ The purpose of this API is to provide the list of NPIs that reach brand moment q
 
 [Link to Documentation](moments/README.md)
 
+## CREATIVES API
+
+Effortlessly upload new creatives and modify existing ones directly through an ad server's user interface
+
+[Link to Documentation](creatives/README.md)
+
 ---
 
 ![IMPORTANT](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
