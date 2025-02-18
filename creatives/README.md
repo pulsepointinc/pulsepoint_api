@@ -453,7 +453,7 @@ This endpoint allows an ad server to get a list of their creatives that are curr
 #### ENDPOINT
 
 ```txt
-v1/account/{accountId}/advertisers/creatives
+v1/advertiser/{advertiserId}/creatives
 ```
 
 #### SAMPLE RESPONSE
