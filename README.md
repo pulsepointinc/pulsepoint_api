@@ -35,4 +35,4 @@ https://lifeapi.pulsepoint.com/RestApi/
 ```
 
 <p align="center"><img src="https://raw.githubusercontent.com/pulsepointinc/npiapi_docs/main/misc/banner.png" /></p>
-<p align="center">&copy; 2024  <a href="https://www.pulsepoint.com/" target="_blank">PulsePoint, Inc</a>
+<p align="center">&copy; 2025  <a href="https://www.pulsepoint.com/" target="_blank">PulsePoint, Inc</a>
