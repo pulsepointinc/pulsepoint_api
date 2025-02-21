@@ -1,4 +1,4 @@
-# NPI API Documentation
+# Pulsepoint API Documentation
 
 #### AUTHENTICATION
 
