@@ -24,6 +24,16 @@ Effortlessly upload new creatives and modify existing ones directly through an a
 
 [Link to Documentation](creatives/README.md)
 
+## CAMPAIGN API
+
+PulsePoint's clients use budgeting to strategically optimize their
+campaigns and tactics. Clients may want to change budgeting
+and allocations rapidly. Now with access to the new Campaign API,
+clients can seamlessly change budgeting options on their tactics
+without logging into the platform.
+
+[Link to Documentation](campaign/README.md)
+
 ---
 
 ![IMPORTANT](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
