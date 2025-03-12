@@ -10,9 +10,8 @@
 
 3. **API Maintenance**: Our API should be up at all times. However, during major deployments that usually happen monthly, it may be down for a few minutes only.
 
----
 
-#### AUTHENTICATION
+## AUTHENTICATION
 
 For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
 
