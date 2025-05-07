@@ -540,6 +540,9 @@ This endpoint allows clients to add NPIs to an existing NPI list.
   "npis": ["3137933122", "3134730123"]
 }
 ```
+![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
+
+This endpoint does allow for duplicated NPIs to be added. To prevent this, we would suggest that you pull NPIs from the list using the [get an npi list](#1-get-an-npi-list) endpoint and comparing agaisnt the NPIs you plan on sending.
 
 If successful in your request will return a `200`. If your request fails it will return one of the following errors:
 
