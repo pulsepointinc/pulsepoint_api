@@ -66,7 +66,8 @@ This endpoint allows clients to retrieve a list of all NPI's that are in a singl
     "1234567897"
   ],
   "name": "NPI_4210",
-  "advertisers": ["Demo"]
+  "advertisers": ["Demo"],
+  "isSmartList": false
 }
 ```
 
@@ -84,7 +85,8 @@ We also offer Lite version of the above endpoint that allows the user to pull in
 {
   "id": 4210,
   "name": "NPI_4210",
-  "advertisers": ["Demo"]
+  "advertisers": ["Demo"],
+  "isSmartList": false
 }
 ```
 
@@ -558,6 +560,7 @@ This endpoint allows clients to add NPIs to an existing NPI list.
   "npis": ["3137933122", "3134730123"]
 }
 ```
+
 ![PLEASE_NOTE](https://img.shields.io/badge/PLEASE_NOTE-661DE1?style=for-the-badge)
 
 This endpoint does allow for duplicated NPIs to be added. To prevent this, we would suggest that you pull NPIs from the list using the [get an npi list](#1-get-an-npi-list) endpoint and comparing agaisnt the NPIs you plan on sending.
