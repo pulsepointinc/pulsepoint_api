@@ -70,6 +70,24 @@ This endpoint allows clients to retrieve a list of all NPI's that are in a singl
 }
 ```
 
+We also offer Lite version of the above endpoint that allows the user to pull infomation about the list, minus the NPI array.
+
+#### ENDPOINT
+
+```txt
+/v1/npi/npi-list/{listID}/lite
+```
+
+#### SAMPLE RESPONSE
+
+```json
+{
+  "id": 4210,
+  "name": "NPI_4210",
+  "advertisers": ["Demo"]
+}
+```
+
 If successful in your request the response will be similar to above with a `200`. If your request fails it will return one of the following errors:
 
 | Error Code                                                                            | Description                                  |
@@ -823,7 +841,7 @@ Create new NPI lists with client’s own attributes.
   "attributes": ["NPI_ID", "Active", "CampaignName", "CompanyName", "CustomID"],
   "name": "NPI_with_Attr",
   "npiColumnIndex": 0,
-  "applications": ['LIFE'],
+  "applications": ["LIFE"],
   "advertisers": ["Demo"]
 }
 ```
