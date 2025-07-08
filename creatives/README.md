@@ -601,6 +601,8 @@ fetch(
   .catch(error => console.error(error))
 ```
 
+</details>
+
 ## Video Creatives
 
 ### 1. Create Video Creative
