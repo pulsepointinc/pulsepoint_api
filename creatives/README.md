@@ -4,7 +4,7 @@
 
 PulsePoint clients seeking enhanced creative management capabilities can now utilize the newly introduced Creative Management API. This API allows clients to effortlessly upload new creatives and modify existing ones directly through an ad server's user interface, eliminating the need to log into the PulsePoint platform.
 
-![IMPORTANT](https://img.shields.io/badge/IMPORTANT-red?style=for-the-badge) 
+![IMPORTANT](https://img.shields.io/badge/IMPORTANT-red?style=for-the-badge)
 
 **Please note this API currently only supports HTML creatives.**
 
@@ -14,6 +14,9 @@ PulsePoint clients seeking enhanced creative management capabilities can now uti
 2. [Get a creative by its ID](#2-get-a-creative-by-its-id)
 3. [Update a creative](#3-update-a-creative)
 4. [Assign creatives to a tactic](#4-assign-creatives-to-tactic)
+5. [VIDEO: Create Creative](#1-create-video-creative)
+6. [VIDEO: Retrieve Creative](#2-retrieve-video-creative)
+7. [VIDEO: Update Creative](#3-update-a-creative)
 
 **Important to Note:**
 
@@ -596,4 +599,156 @@ fetch(
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.error(error))
+```
+
+## Video Creatives
+
+### 1. Create Video Creative
+
+![POST](https://img.shields.io/badge/HTTP%20Method-POST-49cc90?style=for-the-badge)
+
+**Required Path Parameters**
+
+- `accountId`: The ID of the account to own this creative
+
+```
+v1/lifecreative/account/{accountId}
+```
+
+| Field                | Type          | Required? | Constraints / Notes                                            |
+| -------------------- | ------------- | --------- | -------------------------------------------------------------- |
+| creativeType         | string        | Yes       | Must be `"video"`<br>— Identifies this as a video creative     |
+| name                 | string        | No        | 1–80 chars                                                     |
+| source               | string        | Yes       | One of the allowed video source types (see combinations below) |
+| type                 | string        | Yes       | One of the allowed video tech types (see combinations below)   |
+| videoURL             | string        | No        | URL to the video asset                                         |
+| duration             | integer       | Yes       | In seconds                                                     |
+| adSizeWidth          | integer       | Yes       |                                                                |
+| adSizeHeight         | integer       | Yes       |                                                                |
+| domainLandingPage    | string (URL)  | Yes       | Valid URL, max length 1024                                     |
+| advertiserName       | string        | Yes       |                                                                |
+| clickThroughURL      | string        | Yes       |                                                                |
+| bitRate              | integer       | No        | Video bit rate                                                 |
+| adChoicesIcon        | string        | Yes       | TopRight, TopLeft, BottomRight, BottomLeft, None               |
+| campaignRestrictName | string        | No        | Campaign restriction name                                      |
+| notes                | string        | No        | Internal notes                                                 |
+| videoSkippingAfter   | integer       | No        | Seconds before skip button appears                             |
+| categoryNames        | array[string] | No        | List of category names                                         |
+
+**Allowed Source & Type Combinations**
+
+- source: `VAST_Doc`, type: `HTML5_VPAID`
+- source: `VAST_Doc`, type: `MP4_VIDEO`
+- source: `VAST_URL`, type: `HTML5_VPAID`
+- source: `VAST_URL`, type: `MP4_VIDEO`
+- source: `URL`, type: `FLV`
+- source: `URL`, type: `MP4_VIDEO`
+
+#### Example Request Body
+
+```json
+{
+  "creativeType": "video",
+  "name": "July3_video_Vasturl",
+  "source": "VAST_URL",
+  "type": "HTML5_VPAID",
+  "videoURL": "https://rtr.innovid.com/r1.656e48c6baa313.39895082;cb=[timestamp]",
+  "duration": 9,
+  "adSizeHeight": 576,
+  "adSizeWidth": 1024,
+  "domainLandingPage": "https://landing.test.com",
+  "advertiserName": "Amgen",
+  "clickThroughURL": "https://click.test.com",
+  "bitRate": 20,
+  "adChoicesIcon": "TopRight",
+  "notes": "test-notes",
+  "placementId": 123,
+  "campaignRestrictName": "TestDAS1221",
+  "videoSkippingAfter": null,
+  "categoryNames": ["contests & Freebies", "Diabetes"]
+}
+```
+
+### Responses
+
+| Response                      | Description                                        |
+| ----------------------------- | -------------------------------------------------- |
+| **201 Created**               | Returns the newly created `VideoCreativeDTO` JSON. |
+| **400 Bad Request**           | Validation errors (field-level messages).          |
+| **401 Unauthorized**          | Missing or invalid credentials.                    |
+| **404 Not Found**             | Account not found.                                 |
+| **500 Internal Server Error** |                                                    |
+
+### 2. Retrieve Video Creative
+
+![GET](https://img.shields.io/badge/HTTP%20Method-GET-61affe?style=for-the-badge)
+
+**Required Path Parameters**
+
+- `creativeId`: The unique ID of the video creative to retrieve
+
+```bash
+v1/lifecreative/{creativeId}
+```
+
+#### Sample Request
+
+```bash
+GET https://lifeapi.pulsepoint.com/RestApi/v1/lifecreative/311453
+Accept: application/json
+Authorization: Bearer <token>
+```
+
+| Response                      | Description                                 |
+| ----------------------------- | ------------------------------------------- |
+| **200 OK**                    | Returns the `VideoCreativeDTO` JSON object. |
+| **400 Bad Request**           | Invalid `creativeId`.                       |
+| **401 Unauthorized**          | Missing or invalid credentials.             |
+| **404 Not Found**             | No creative found with the given ID.        |
+| **500 Internal Server Error** |                                             |
+
+### 3. Update Video Creative
+
+![PUT](https://img.shields.io/badge/HTTP%20Method-PUT-fca130?style=for-the-badge)
+
+**Required Path Parameters**
+
+- `creativeId`: The unique ID of the video creative to retrieve
+
+```bash
+v1/lifecreative/{creativeId}
+```
+
+**Request Headers**
+
+- Content-Type: application/json
+- Authorization: Bearer `<token>` (if applicable)
+
+**Request Body**
+
+- Content-Type: application/json
+
+### Sample Request
+
+```json
+{
+  "creativeType": "video",
+  "name": "July3_video_Vasturl",
+  "source": "VAST_URL",
+  "type": "HTML5_VPAID",
+  "videoURL": "https://rtr.innovid.com/r1.656e48c6baa313.39895082;cb=[timestamp]",
+  "duration": 9,
+  "adSizeHeight": 576,
+  "adSizeWidth": 1024,
+  "domainLandingPage": "https://landing.test.com",
+  "advertiserName": "Amgen",
+  "clickThroughURL": "https://click.test.com",
+  "bitRate": 20,
+  "adChoicesIcon": "TopRight",
+  "notes": "test-notes",
+  "placementId": 123,
+  "campaignRestrictName": "TestDAS1221",
+  "videoSkippingAfter": null,
+  "categoryNames": ["contests & Freebies", "Diabetes"]
+}
 ```
