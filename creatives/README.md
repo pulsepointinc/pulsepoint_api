@@ -4,10 +4,6 @@
 
 PulsePoint clients seeking enhanced creative management capabilities can now utilize the newly introduced Creative Management API. This API allows clients to effortlessly upload new creatives and modify existing ones directly through an ad server's user interface, eliminating the need to log into the PulsePoint platform.
 
-![IMPORTANT](https://img.shields.io/badge/IMPORTANT-red?style=for-the-badge)
-
-**Please note this API currently only supports HTML creatives.**
-
 ### Actions
 
 1. [Create a creative specific account](#1-create-creative)
