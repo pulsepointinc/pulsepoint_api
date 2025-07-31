@@ -22,7 +22,7 @@ oauth/token
 ```bash
 curl --request POST \
 --url 'https://lifeapi.pulsepoint.com/RestApi/oauth/token' \
---user '$client_id:$client_secret'
+--user '$client_id:$client_secret' \
 --header 'content-type: application/x-www-form-urlencoded' \
 --data 'username=$USERNAME' \
 --data 'password=$PASSWORD' \
@@ -53,7 +53,7 @@ curl --request POST \
 curl --request POST \
 --url 'https://lifeapi.pulsepoint.com/RestApi/oauth/token' \
 --header 'content-type: application/x-www-form-urlencoded' \
---user '$client:$secret'
+--user '$client:$secret' \
 --data grant_type=refresh_token \
 --data refresh_token=$REFRESH_TOKEN
 
@@ -69,7 +69,7 @@ curl --request POST \
 curl --request POST \
 --url 'https://lifeapi.pulsepoint.com/RestApi/oauth/token' \
 --header 'content-type: application/x-www-form-urlencoded' \
---user '$client:$secret'
+--user '$client:$secret' \
 --data grant_type=refresh_token \
 --data refresh_token=$REFRESH_TOKEN
 ```
