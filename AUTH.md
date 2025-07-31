@@ -1,4 +1,4 @@
-# USER AUTHENTICATION (OAUTH 2.0)
+# 🔐 Authentication - OAuth 2.0
 
 The NPI List API uses OAuth 2.0 in order to authorize its users. A typical client's Life account has many users and each user is assigned a unique username/password combination that they use to access the Life Platform. The same username/password credentials can be used to access the NPI Life API as well. Additionally, a unique client_secret is assigned to each organization in Life. Your PulsePoint Representative will provide you with access to this client_secret.
 
@@ -49,6 +49,8 @@ curl --request POST \
 
 **EXAMPLE CURL REQUEST**
 
+🔑 Password Grant Flow
+
 ```bash
 curl --request POST \
 --url 'https://lifeapi.pulsepoint.com/RestApi/oauth/token' \
@@ -64,6 +66,8 @@ curl --request POST \
 - `--data refresh_token=$REFRESH_TOKEN`
 
 ### 3. Using the refresh token, we can get a “new” access token alongside a new refresh token using the parameters
+
+🔁 Refresh Token Flow
 
 ```bash
 curl --request POST \
