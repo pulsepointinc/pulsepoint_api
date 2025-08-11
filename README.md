@@ -10,7 +10,6 @@
 
 3. **API Maintenance**: Our API should be up at all times. However, during major deployments that usually happen monthly, it may be down for a few minutes only.
 
-
 ## AUTHENTICATION
 
 For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
@@ -35,7 +34,13 @@ Effortlessly upload new creatives and modify existing ones directly through an a
 
 [Link to Documentation](creatives/README.md)
 
-## CAMPAIGN API
+## CAMPAIGN & LINEITEM CREATION
+
+TODO: Write blurb
+
+[Link to Documentation](campaign_lineitem_creation/README.md)
+
+## CAMPAIGN MGNT API
 
 PulsePoint's clients use budgeting to strategically optimize their
 campaigns and tactics. Clients may want to change budgeting
@@ -43,7 +48,7 @@ and allocations rapidly. Now with access to the new Campaign API,
 clients can seamlessly change budgeting options on their tactics
 without logging into the platform.
 
-[Link to Documentation](campaign/README.md)
+[Link to Documentation](campaign_mgnt/README.md)
 
 ---
 
