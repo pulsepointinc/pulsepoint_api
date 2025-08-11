@@ -1,7 +1,5 @@
 # Create Campaign / LineItems
 
-This endpoint allows you to create Campaigns
-
 - [Create Campaign / LineItems](#create-campaign--lineitems)
   - [1. Get a Campaign](#1-get-a-campaign)
     - [Response](#response)
@@ -29,7 +27,7 @@ This endpoint allows you to create Campaigns
 
 ### 1. Get a Campaign
 
-This endpoint fetches the details, along with the line items, for a given campaign.
+This endpoint fetches the details, along with the line items, for a given **active** campaign.
 
 ![GET](https://img.shields.io/badge/HTTP%20Method-GET-61affe?style=for-the-badge)
 
@@ -186,7 +184,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 
 ## ✏️ Field Spec
 
-### Campaign Level
+#### Campaign Level
 
 | Field Name         | Data Type | Required | Notes                                                                                                                  |
 | ------------------ | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -201,7 +199,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | frequencyCap       | Object    | No       |                                                                                                                        |
 | lineItems          | Object    | No       |                                                                                                                        |
 
-### `campaign.customFieldSetting`
+#### `campaign.customFieldSetting`
 
 | Field Name         | Data Type | Required | Notes                                    |
 | ------------------ | --------- | -------- | ---------------------------------------- |
@@ -210,7 +208,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | fieldName          | String    | No       | Name must be unique if isNewField = true |
 | fieldValue         | String    | No       |                                          |
 
-### `campaign.frequencyCap`
+#### `campaign.frequencyCap`
 
 | Field Name        | Data Type | Required | Notes |
 | ----------------- | --------- | -------- | ----- |
@@ -223,7 +221,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | untrackable       | Boolean   | No       |       |
 | ipUntrackable     | Boolean   | No       |       |
 
-### `campaign.lineItems`
+#### `campaign.lineItems`
 
 | Field Name         | Data Type     | Required | Notes                                   |
 | ------------------ | ------------- | -------- | --------------------------------------- |
@@ -236,7 +234,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | inventoryType      | String- ENUM  | Yes      | Valid Values: Display                   |
 | frequencyCap       | Object        | No       |                                         |
 
-### `campaign.lineItems.customFieldSetting`
+#### `campaign.lineItems.customFieldSetting`
 
 | Field Name         | Data Type       | Required | Notes                                    |
 | ------------------ | --------------- | -------- | ---------------------------------------- |
@@ -245,7 +243,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | fieldName          | String          | No       | Name must be unique if isNewField = true |
 | fieldValue         | String          | No       |                                          |
 
-### `campaign.lineitems.flights`
+#### `campaign.lineitems.flights`
 
 | Field Name           | Data Type       | Required | Notes                                                                              |
 | -------------------- | --------------- | -------- | ---------------------------------------------------------------------------------- |
@@ -256,7 +254,7 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 | pacingMode           | String - ENUM   | Yes      | Valid Values: “Even”, “ASAP”, “Ahead”                                              |
 | pacingModePercentage | Numeric         | No       | Applicable only if pacingMode=”Ahead" If you enter “10” it will interpreted as 10% |
 
-### `campaign.lineitems.frequencyCap`
+#### `campaign.lineitems.frequencyCap`
 
 | Field Name        | Data Type     | Required | Notes                                               |
 | ----------------- | ------------- | -------- | --------------------------------------------------- |
@@ -369,12 +367,9 @@ v1/campaignImport/account/{accountId}/advertisers
 
 ```json
 {
- "accountName": "CMI
- "accountId": 00001,
- "advertiserId": [
-     1,
-     2
- ]
+  "accountName": "CMI",
+  "accountId": 00001,
+  "advertiserId": [1, 2]
 }
 ```
 
