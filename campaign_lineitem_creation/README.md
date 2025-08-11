@@ -1,13 +1,21 @@
-# Creative & Line Item Creation
+# Create Campaign / LineItems
 
-TODO: write intro
+This endpoint allows you to create Campaigns
 
-- [Creative \& Line Item Creation](#creative--line-item-creation)
+- [Create Campaign / LineItems](#create-campaign--lineitems)
   - [1. Get a Campaign](#1-get-a-campaign)
     - [Response](#response)
   - [2. Create a Campaign](#2-create-a-campaign)
   - [Request](#request)
   - [Example response](#example-response)
+  - [✏️ Field Spec](#️-field-spec)
+    - [Campaign Level](#campaign-level)
+    - [`campaign.customFieldSetting`](#campaigncustomfieldsetting)
+    - [`campaign.frequencyCap`](#campaignfrequencycap)
+    - [`campaign.lineItems`](#campaignlineitems)
+    - [`campaign.lineItems.customFieldSetting`](#campaignlineitemscustomfieldsetting)
+    - [`campaign.lineitems.flights`](#campaignlineitemsflights)
+    - [`campaign.lineitems.frequencyCap`](#campaignlineitemsfrequencycap)
   - [⚠️ Error Handling](#️-error-handling)
     - [❌ Sample Validation Errors](#-sample-validation-errors)
   - [🚦 Rate Limiting](#-rate-limiting)
@@ -176,6 +184,91 @@ This endpoint can be used to create a campaign and its subsequent line item(s).
 }
 ```
 
+## ✏️ Field Spec
+
+### Campaign Level
+
+| Field Name         | Data Type | Required | Notes                                                                                                                  |
+| ------------------ | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+| name               | String    | Yes      | Name must be unique                                                                                                    |
+| account            | String    | Yes      | This is the same ID used in authorizing into the API                                                                   |
+| description        | String    | No       |                                                                                                                        |
+| advertiser         | String    | Yes      | This is the name of the advertiser you want your campaign to run under                                                 |
+| budgetCap          | String    | No       |                                                                                                                        |
+| drugName           | String    | No       | If not null, then needs to be a valid drug according                                                                   |
+| basketDrugNames    | String    | No       | If not null, then needs to be a valid drug according                                                                   |
+| customFieldSetting | Object    | No       | If you set the new field to true, the validation will check the name of the field and reject any previously used names |
+| frequencyCap       | Object    | No       |                                                                                                                        |
+| lineItems          | Object    | No       |                                                                                                                        |
+
+### `campaign.customFieldSetting`
+
+| Field Name         | Data Type | Required | Notes                                    |
+| ------------------ | --------- | -------- | ---------------------------------------- |
+| customFieldSetting | Topline   |          |                                          |
+| isNewField         | Boolean   | No       | Valid Values: {“true”, “false”}          |
+| fieldName          | String    | No       | Name must be unique if isNewField = true |
+| fieldValue         | String    | No       |                                          |
+
+### `campaign.frequencyCap`
+
+| Field Name        | Data Type | Required | Notes |
+| ----------------- | --------- | -------- | ----- |
+| frequencyCap      | Topline   |          |       |
+| applyFrequencyCap | Boolean   | No       |       |
+| times             | String    | No       |       |
+| period            | String    | No       |       |
+| hoursValue        | String    | No       |       |
+| crossDevice       | String    | No       |       |
+| untrackable       | Boolean   | No       |       |
+| ipUntrackable     | Boolean   | No       |       |
+
+### `campaign.lineItems`
+
+| Field Name         | Data Type     | Required | Notes                                   |
+| ------------------ | ------------- | -------- | --------------------------------------- |
+| lineItems          | Topline       |          |                                         |
+| name               | String        | Yes      | Must be unique within the same campaign |
+| costModel          | String - ENUM | Yes      | Valid Values: “CPM”, “Fixed CPM”        |
+| description        | String        | No       |                                         |
+| customFieldSetting | Object        | No       |                                         |
+| flights            | Object        | No       |                                         |
+| inventoryType      | String- ENUM  | Yes      | Valid Values: Display                   |
+| frequencyCap       | Object        | No       |                                         |
+
+### `campaign.lineItems.customFieldSetting`
+
+| Field Name         | Data Type       | Required | Notes                                    |
+| ------------------ | --------------- | -------- | ---------------------------------------- |
+| customFieldSetting | Topline - Array |          |                                          |
+| isNewField         | Boolean         | No       | Valid Values: {“true”, “false”}          |
+| fieldName          | String          | No       | Name must be unique if isNewField = true |
+| fieldValue         | String          | No       |                                          |
+
+### `campaign.lineitems.flights`
+
+| Field Name           | Data Type       | Required | Notes                                                                              |
+| -------------------- | --------------- | -------- | ---------------------------------------------------------------------------------- |
+| flights              | Topline - Array |          |                                                                                    |
+| budget               | Numeric         | Yes      |                                                                                    |
+| startDate            | DateTime        | Yes      | Ex: 2026-04-01 00:00                                                               |
+| endDate              | DateTime        | Yes      | Ex: 2026-04-01 00:00                                                               |
+| pacingMode           | String - ENUM   | Yes      | Valid Values: “Even”, “ASAP”, “Ahead”                                              |
+| pacingModePercentage | Numeric         | No       | Applicable only if pacingMode=”Ahead" If you enter “10” it will interpreted as 10% |
+
+### `campaign.lineitems.frequencyCap`
+
+| Field Name        | Data Type     | Required | Notes                                               |
+| ----------------- | ------------- | -------- | --------------------------------------------------- |
+| frequencyCap      | Topline       | No       |                                                     |
+| applyFrequencyCap | Boolean       | No       |                                                     |
+| times             | String        | No       | Must be a number                                    |
+| period            | String - ENUM | No       | Valid Values: “day”, “hour(s)”, “week”, “month”     |
+| hoursValue        | String        | No       | Must be a number                                    |
+| crossDevice       | String - ENUM | No       | Valid Values: Per Device, Per Person, Per Household |
+| untrackable       | Boolean       | No       |                                                     |
+| ipUntrackable     | Boolean       | No       |                                                     |
+
 ## ⚠️ Error Handling
 
 ### ❌ Sample Validation Errors
@@ -300,7 +393,7 @@ v1/campaignImport/advertiser/{advertiserId}/account/{accountId}
 ```json
 {
  "advertiserId": 001,
- "advertiserName": "CMIAdvertiser
+ "advertiserName": "CMIAdvertiser"
  "campaignIds": [
      0001,
      0002,
