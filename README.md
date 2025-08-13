@@ -10,9 +10,6 @@
 
 3. **API Maintenance**: Our API should be up at all times. However, during major deployments that usually happen monthly, it may be down for a few minutes only.
 
-## AUTHENTICATION
-
-For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
 
 ![Important to Note](https://img.shields.io/badge/IMPORTANT_TO_NOTE-red?style=for-the-badge)
 
@@ -21,6 +18,14 @@ For documentation on how to use OAuth 2.0 in order to authorize your requests pl
 - The max usage of the API per client is:
   - Create/Modify/Delete: 1 call per second, max 10 calls per minute
   - GET List = 1 per second
+ 
+---
+
+## AUTHENTICATION
+
+For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
+
+
 
 ## NPI LIST API
 
