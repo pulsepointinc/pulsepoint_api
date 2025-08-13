@@ -13,7 +13,7 @@ def post_npis_to_lists(list_ids, npis):
         url = f"{API_ROOT}/{list_id}"
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                res = session.post(url, json=npis, timeout=TIMEOUT)
+                res = session.post(url, json={"operation": "add","npis": npis}, timeout=TIMEOUT)
                 if 200 <= res.status_code < 300:
                     print(f"OK: list {list_id} ({len(npis)} NPIs)")
                     break
