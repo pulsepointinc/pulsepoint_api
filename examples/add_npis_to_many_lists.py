@@ -6,6 +6,17 @@ TIMEOUT = 10           # seconds
 MAX_RETRIES = 3        # simple retry loop
 BACKOFF_SECONDS = 1.0  # grows linearly per retry
 
+"""
+NOTE:
+
+This script allows you to loop over a list of list_ids to send the same list of npis to multiple lists.
+Here the script will also retry on some common http errors before failing
+
+The endpoint used here: https://github.com/pulsepointinc/pulsepoint_api/tree/main/npi#5-add-npis-to-a-list
+
+Any questions about this example, please reach out to your support.
+"""
+
 def post_npis_to_lists(list_ids, npis):
     session = requests.Session()  # reuse connection; easy speed win
     
