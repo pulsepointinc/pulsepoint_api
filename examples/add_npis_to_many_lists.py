@@ -1,30 +1,39 @@
+import time
 import requests
 
-list_ids = [123456, 789012, 678345]  # Replace with your actual list IDs
-npis = [
-    "1993840271",
-    "2359846710",
-    "3092816742",
-    "1875902345",
-    "2294836715",
-]  # Replace with your actual NPIs
+API_ROOT = "https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list"
+TIMEOUT = 10           # seconds
+MAX_RETRIES = 3        # simple retry loop
+BACKOFF_SECONDS = 1.0  # grows linearly per retry
 
-"""
-NOTE:
-This example shows how you're able to send the same NPIs to multiple lists using a for loop.
-The for loop iteratres through the list_ids list sending the list of NPIs to each liust ID.
-
-You may need to use a timer to avoid hitting rate limits if you have a large number of lists or NPIs.
-"""
-
-try:
+def post_npis_to_lists(list_ids, npis):
+    session = requests.Session()  # reuse connection; easy speed win
+    
     for list_id in list_ids:
-        res = requests.post(
-            f"https://lifeapi.pulsepoint.com/RestApi/v1/npi/npi-list/{list_id}",
-            json=npis,
-        )
-        res.raise_for_status()  # Raise an error for bad responses
-        if res.status_code == 200:
-            print(f"Successfully added NPIs to list {list_id}")
-except requests.exceptions.RequestException as e:
-    raise e
+        url = f"{API_ROOT}/{list_id}"
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                res = session.post(url, json=npis, timeout=TIMEOUT)
+                if 200 <= res.status_code < 300:
+                    print(f"OK: list {list_id} ({len(npis)} NPIs)")
+                    break
+                    
+                # retry only on likely-transient statuses
+                if res.status_code in (429, 500, 502, 503, 504) and attempt < MAX_RETRIES:
+                    time.sleep(BACKOFF_SECONDS * attempt)
+                    continue
+                    
+                print(f"FAIL: list {list_id} status {res.status_code}: {res.text[:200]}")
+                break
+                
+            except requests.RequestException as e:
+                if attempt < MAX_RETRIES:
+                    time.sleep(BACKOFF_SECONDS * attempt)
+                    continue
+                    
+                print(f"ERROR: list {list_id}: {e}")
+
+if __name__ == "__main__":
+    list_ids = [123456, 789012, 678345]  # your list IDs
+    npis = ["1993840271", "2359846710", "3092816742", "1875902345", "2294836715"]  # your NPIs
+    post_npis_to_lists(list_ids, npis)
