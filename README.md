@@ -14,7 +14,13 @@
 
 For documentation on how to use OAuth 2.0 in order to authorize your requests please read through our [Authentication documentation](AUTH.md)
 
----
+![Important to Note:](https://img.shields.io/badge/IMPORTANT-TO-NOTE-red?style=for-the-badge)
+
+- Clients may only GET Smart Lists, lists created by file name and lists with labels. `POST` requests are not allowed for these type of lists.
+- The max amount of NPI's per list is 1 million.
+- The max usage of the API per client is:
+  - Create/Modify/Delete: 1 call per second, max 10 calls per minute
+  - GET List = 1 per second
 
 ## NPI LIST API
 
