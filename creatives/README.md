@@ -1,5 +1,15 @@
 # CREATIVE MANAGEMENT API
 
+# Important notice
+
+PulsePoint API documentation has a new home! [Link](https://pulsepoint-platform.readme.io/docs/getting-started#/)
+
+This platform provides guides explaining how each endpoint works as well as the different fields supported. The API Reference tab can be used to test each endpoint right in the app. You can authenticate using your UN/PW and Key and Secret provided by your account manager.
+
+We will be deprecating these Github docs by the end of the year (December 31, 2025).
+
+Please reach out with any questions!
+
 ## INTRODUCTION
 
 PulsePoint clients seeking enhanced creative management capabilities can now utilize the newly introduced Creative Management API. This API allows clients to effortlessly upload new creatives and modify existing ones directly through an ad server's user interface, eliminating the need to log into the PulsePoint platform.
