@@ -1,3 +1,13 @@
+![IMPORTANT NOTICE](https://img.shields.io/badge/IMPORTANT_NOTICE-red?style=for-the-badge)
+
+PulsePoint API documentation has a new home! [Link](https://pulsepoint-platform.readme.io/docs/getting-started#/)
+
+This platform provides guides explaining how each endpoint works as well as the different fields supported. The API Reference tab can be used to test each endpoint right in the app. You can authenticate using your UN/PW and Key and Secret provided by your account manager.
+
+We will be deprecating these Github docs by the end of the year (December 31, 2025).
+
+Please reach out with any questions!
+
 # Pulsepoint API Documentation
 
 ![ThingsToNote](https://img.shields.io/badge/THINGS_TO_NOTE-blue?style=for-the-badge)
